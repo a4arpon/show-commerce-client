@@ -9,10 +9,9 @@ const Navbar = () => {
   const handleMenu = useCallback(() => {
     setIsNavbarOpen((isNavbarOpen) => !isNavbarOpen)
   }, [])
-  console.log('rendered')
   return (
     <nav
-      className={`fixed w-full bg-light bg-opacity-80 
+      className={`fixed w-full bg-light bg-opacity-80 z-10
     backdrop-blur-sm ${isNavbarOpen ? 'h-52 lg:h-20' : 'h-20'}`}
     >
       <div className='container grid h-full grid-cols-2 items-center justify-between lg:grid-cols-3'>

@@ -19,7 +19,7 @@ export const buttonVariants = cva(
         md: 'text-lg',
       },
       rounded: {
-        sm: 'rounded-sm',
+        md: 'rounded',
         full: 'rounded-full',
       },
       scale: {
@@ -38,7 +38,7 @@ export const buttonVariants = cva(
     defaultVariants: {
       variant: 'primary',
       fontSize: 'sm',
-      rounded: 'sm',
+      rounded: 'md',
       scale: 'in',
       width: 'fit',
     },
