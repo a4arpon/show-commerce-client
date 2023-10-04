@@ -1,4 +1,5 @@
 'use client'
+
 import ShippingInfo from '@/components/others/checkout/ShippingInfo'
 import Button from '@/components/shared/Button'
 

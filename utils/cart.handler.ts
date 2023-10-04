@@ -1,28 +1,44 @@
-import { ProductType } from '@/interfaces/product.interface'
+import { CustomizationTypes } from '@/interfaces/order.interface'
 
-const saveToCart = (product: ProductType) => {
-  const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]')
+export const saveToCart = (product: CustomizationTypes) => {
+  if (typeof window !== 'undefined') {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]')
 
-  const existingProduct = cartItems.find(
-    (item: ProductType) => item._id === product._id
-  )
+    const existingProduct = cartItems.find(
+      (item: CustomizationTypes) => item.product?._id === product.product?._id
+    )
 
-  if (existingProduct) {
-    Object.assign(existingProduct, product)
+    if (existingProduct) {
+      Object.assign(existingProduct, product)
+    } else {
+      cartItems.push(product)
+    }
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems))
   } else {
-    cartItems.push(product)
+    return null
   }
-
-  localStorage.setItem('cartItems', JSON.stringify(cartItems))
 }
 
-const delFromCart = (id: string) => {
-  const cartItems: ProductType[] = JSON.parse(
-    localStorage.getItem('cart') || '[]'
-  )
-  const updatedCartItems = cartItems.filter((item) => item._id !== id)
+export const delFromCart = (id: string) => {
+  if (typeof window !== 'undefined') {
+    const cartItems: CustomizationTypes[] = JSON.parse(
+      localStorage.getItem('cartItems') || '[]'
+    )
+    const updatedCartItems = cartItems.filter(
+      (item) => item.product?._id !== id
+    )
 
-  localStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+  } else {
+    return null
+  }
 }
 
-export { delFromCart as DelFromCart, saveToCart }
+export const clearCart = () => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('cartItems')
+  } else {
+    return null
+  }
+}

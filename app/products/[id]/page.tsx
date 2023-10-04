@@ -12,25 +12,25 @@ import { useMemo } from 'react'
 const ProductPage = ({ params }: { params: { id: string } }) => {
   const { data, isLoading } = useProducts(`/products/${params.id}`)
   // Handle cpu intensive data calculations
-  const products: ProductType = useMemo(() => {
+  const product: ProductType = useMemo(() => {
     if (data) {
       return data
     }
     return null
   }, [data])
 
-  if (products && !isLoading) {
+  if (product && !isLoading) {
     return (
-      <div className='container flex flex-col lg:grid gap-10 py-28 lg:grid-cols-3'>
+      <div className='container flex flex-col gap-10 py-28 lg:grid lg:grid-cols-3'>
         <div className='flex flex-col gap-5'>
-          <ProductsDetails details={products} />
+          <ProductsDetails details={product} />
         </div>
-        <div className='text-lg lg:col-span-2 flex flex-col gap-10'>
+        <div className='flex flex-col gap-10 text-lg lg:col-span-2'>
           <div>
             <h3 className='mb-2 border-b pb-1 text-xl uppercase'>
               Customize Product
             </h3>
-            <CustomizeProducts options={products?.optional} />
+            <CustomizeProducts options={product?.optional} product={product} />
           </div>
           <div>
             <h3 className='mb-2 border-b pb-1 text-xl uppercase'>

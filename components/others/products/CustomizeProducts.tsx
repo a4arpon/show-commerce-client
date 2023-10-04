@@ -1,19 +1,31 @@
 'use client'
 import Button from '@/components/shared/Button'
 import { CustomizationTypes } from '@/interfaces/order.interface'
-import { Optional } from '@/interfaces/product.interface'
+import { Optional, ProductType } from '@/interfaces/product.interface'
+import { saveToCart } from '@/utils/cart.handler'
+import { useRouter } from 'next/navigation'
 import { useCallback, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-const CustomizeProducts = ({ options }: { options: Optional[] }) => {
+const CustomizeProducts = ({
+  options,
+  product,
+}: {
+  options: Optional[]
+  product: ProductType
+}) => {
   const { register, handleSubmit } = useForm<CustomizationTypes>()
-
+  const router = useRouter()
   const [customizations, setCustomizations] =
     useState<CustomizationTypes | null>(null)
   // Handle unnecessary re-renders.
-  const handleForm = useCallback((data: CustomizationTypes) => {
-    setCustomizations(data)
-  }, [])
+  const handleForm = useCallback(
+    (data: CustomizationTypes) => {
+      data.product = product
+      setCustomizations(data)
+    },
+    [product]
+  )
   // Handle cpu intensive calculations
   const customizedData = useMemo(() => {
     return customizations
@@ -127,8 +139,22 @@ const CustomizeProducts = ({ options }: { options: Optional[] }) => {
           {customizedData?.quantity}
         </div>
         <div className='mt-3 flex justify-between lg:col-span-2'>
-          <Button>Continue Shopping</Button>
-          <Button>Proceed Checkout</Button>
+          <Button
+            onClick={() => {
+              saveToCart(customizedData)
+              router.push('/')
+            }}
+          >
+            Continue Shopping
+          </Button>
+          <Button
+            onClick={() => {
+              saveToCart(customizedData)
+              router.push('/cart/checkout')
+            }}
+          >
+            Proceed Checkout
+          </Button>
         </div>
       </div>
     )
