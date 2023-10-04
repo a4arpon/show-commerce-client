@@ -1,22 +1,29 @@
+'use client'
+
 import Button from '@/components/shared/Button'
 import { ShippingInfoType } from '@/interfaces/order.interface'
 import { getShippingInfo, saveShippingInfo } from '@/utils/shippping.handler'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 const ShippingInfo = () => {
   const { register, handleSubmit } = useForm<ShippingInfoType>()
-  const existingShippingInfo = getShippingInfo()
-  const [shippingInfo, setShippingInfo] = useState<ShippingInfoType | null>(
-    existingShippingInfo
-  )
+  const [shippingInfo, setShippingInfo] = useState<ShippingInfoType | null>()
+  useEffect(() => {
+    const existingShippingInfo = getShippingInfo()
+    setShippingInfo(existingShippingInfo)
+    return () => {
+      setShippingInfo(null)
+    }
+  }, [])
+
   // Handle unnecessary re-renders.
   const handleForm = useCallback((data: ShippingInfoType) => {
     saveShippingInfo(data)
     setShippingInfo(data)
   }, [])
 
-  if (!existingShippingInfo || !shippingInfo) {
+  if (!shippingInfo) {
     return (
       <form
         className='flex flex-col gap-3 lg:grid lg:grid-cols-2'
@@ -27,7 +34,6 @@ const ShippingInfo = () => {
           <input
             type='text'
             {...register('name', { required: true })}
-            defaultValue={shippingInfo?.name}
             className='input'
             placeholder='Enter your name.'
           />
@@ -36,7 +42,6 @@ const ShippingInfo = () => {
           <label>Email</label>
           <input
             type='email'
-            defaultValue={shippingInfo?.email}
             {...register('email', { required: true })}
             className='input'
             placeholder='Enter your email.'
@@ -46,7 +51,6 @@ const ShippingInfo = () => {
           <label>Phone</label>
           <input
             type='text'
-            defaultValue={shippingInfo?.phone}
             {...register('phone', { required: true })}
             className='input'
             placeholder='Enter your phone.'
@@ -56,7 +60,6 @@ const ShippingInfo = () => {
           <label>Address</label>
           <input
             type='text'
-            defaultValue={shippingInfo?.address}
             {...register('address', { required: true })}
             className='input'
             placeholder='Enter your address.'
@@ -66,7 +69,6 @@ const ShippingInfo = () => {
           <label>Address Line 2</label>
           <input
             type='text'
-            defaultValue={shippingInfo?.address_optional}
             {...register('address_optional')}
             className='input'
             placeholder='Enter your address line 2.'
@@ -76,7 +78,6 @@ const ShippingInfo = () => {
           <label>Zip Code</label>
           <input
             type='text'
-            defaultValue={shippingInfo?.zip}
             {...register('zip', { required: true })}
             className='input'
             placeholder='Enter your area zip code.'
@@ -86,7 +87,6 @@ const ShippingInfo = () => {
           <label>City</label>
           <input
             type='text'
-            defaultValue={shippingInfo?.city}
             {...register('city', { required: true })}
             className='input'
             placeholder='Enter your city.'
@@ -96,7 +96,6 @@ const ShippingInfo = () => {
           <label>Country</label>
           <input
             type='text'
-            defaultValue={shippingInfo?.country}
             {...register('country', { required: true })}
             className='input'
             placeholder='Enter your country.'
@@ -140,7 +139,7 @@ const ShippingInfo = () => {
         </div>
         <div className='lg:col-span-2'>
           <Button
-          variant="ghost"
+            variant='ghost'
             onClick={() => {
               setShippingInfo(null)
             }}

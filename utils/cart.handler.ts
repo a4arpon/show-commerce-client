@@ -20,6 +20,16 @@ export const saveToCart = (product: CustomizationTypes) => {
   }
 }
 
+export const getCartItems = (): CustomizationTypes[] => {
+  if (typeof window !== 'undefined') {
+    const cartItems: CustomizationTypes[] = JSON.parse(
+      localStorage.getItem('cartItems') || '[]'
+    )
+    return cartItems
+  }
+  return []
+}
+
 export const delFromCart = (id: string) => {
   if (typeof window !== 'undefined') {
     const cartItems: CustomizationTypes[] = JSON.parse(
