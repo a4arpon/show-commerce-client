@@ -1,21 +1,46 @@
 'use client'
 
+import loadingSpinner from '@/assets/loading.svg'
+import CustomizeProducts from '@/components/others/products/CustomizeProducts'
+import ProductsDetails from '@/components/others/products/ProductsDetails'
 import useProducts from '@/hooks/useProducts'
+import { productType } from '@/interfaces/product.interface'
 import Image from 'next/image'
+import { useMemo } from 'react'
 
 const ProductPage = ({ params }: { params: { id: string } }) => {
   const { data, isLoading } = useProducts(`/products/${params.id}`)
+  // Handle cpu intensive data calculations
+  const products: productType = useMemo(() => {
+    if (data) {
+      return data
+    }
+    return null
+  }, [data])
 
-  return (
-    <div className='grid grid-cols-5 py-28'>
-      <div className='col-span-2'>
-        <Image src={data?.photoUrl} alt={data?.name} width={640} height={720} />
+  if (products && !isLoading) {
+    return (
+      <div className='container grid gap-5 py-28 lg:grid-cols-3'>
+        <div className='flex flex-col gap-5'>
+          <ProductsDetails details={products} />
+        </div>
+        <div className='text-lg lg:col-span-2'>
+          <div>
+            <h3 className='mb-2 border-b pb-1 text-xl uppercase'>
+              Customize Product
+            </h3>
+            <CustomizeProducts options={products?.optional} />
+          </div>
+        </div>
       </div>
-      <div className='col-span-3'>
-        <h1 className='text-3xl'>{data?.name}</h1>
+    )
+  } else {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image src={loadingSpinner} alt='Spinner' className='h-52' priority />
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default ProductPage

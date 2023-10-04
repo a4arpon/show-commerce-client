@@ -11,7 +11,7 @@ const HomePage = () => {
   return (
     <>
       <Hero />
-      <section id='products' className='container grid grid-cols-4 gap-5 py-20'>
+      <section id='products' className='container grid lg:grid-cols-3 xl:grid-cols-4 gap-5 py-20'>
         {data &&
           data.map((item: productType) => (
             <ProductCard key={item._id} product={item} />

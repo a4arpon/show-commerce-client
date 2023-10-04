@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.input{
+  @apply bg-dark/5 border border-dark/20 p-3 rounded focus:outline-none focus:border-dark/75 outline-none
+}
+
+
+.mini_title{
+  @apply mb-2 border-b pb-1 text-xl uppercase
+}

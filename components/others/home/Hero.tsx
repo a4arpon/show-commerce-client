@@ -16,7 +16,7 @@ const Hero = () => {
               Express Your Style, Be Unique, Be You!
             </h1>
           </div>
-          <div className='flex w-full items-center justify-end lg:col-span-2'>
+          <div className='flex w-full items-center justify-center lg:justify-end lg:col-span-2'>
             <div className='group h-32 w-32 overflow-hidden rounded-full bg-light p-10 text-5xl text-dark duration-300 ease-in-out hover:h-56 hover:w-56 hover:scale-125'>
               <Link
                 href='/#products'

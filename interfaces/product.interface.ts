@@ -9,7 +9,7 @@ export interface productType {
   optional: Optional[]
 }
 
-interface Optional {
+export interface Optional {
   _id: string
   name: string
   price: number
