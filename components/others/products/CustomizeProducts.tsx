@@ -1,8 +1,12 @@
 'use client'
 import Button from '@/components/shared/Button'
-import { CustomizationTypes } from '@/interfaces/order.interface'
+import {
+  CustomizationTypes,
+  ShippingInfoType,
+} from '@/interfaces/order.interface'
 import { Optional, ProductType } from '@/interfaces/product.interface'
 import { saveToCart } from '@/utils/cart.handler'
+import { getShippingInfo } from '@/utils/shippping.handler'
 import { useRouter } from 'next/navigation'
 import { useCallback, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -18,6 +22,8 @@ const CustomizeProducts = ({
   const router = useRouter()
   const [customizations, setCustomizations] =
     useState<CustomizationTypes | null>(null)
+  const [shippingInfo, setShippingInfo] = useState<ShippingInfoType | null>()
+
   // Handle unnecessary re-renders.
   const handleForm = useCallback(
     (data: CustomizationTypes) => {
@@ -141,16 +147,24 @@ const CustomizeProducts = ({
         <div className='mt-3 flex justify-between lg:col-span-2'>
           <Button
             onClick={() => {
-              saveToCart(customizedData)
-              router.push('/')
+              if (getShippingInfo()) {
+                saveToCart(customizedData)
+                router.push('/')
+              } else {
+                alert('Please add shipping info before proceed to next step.')
+              }
             }}
           >
             Continue Shopping
           </Button>
           <Button
             onClick={() => {
-              saveToCart(customizedData)
-              router.push('/cart/checkout')
+              if (getShippingInfo()) {
+                saveToCart(customizedData)
+                router.push('/cart/checkout')
+              } else {
+                alert('Please add shipping info before proceed to next step.')
+              }
             }}
           >
             Proceed Checkout
