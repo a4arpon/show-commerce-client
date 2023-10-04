@@ -5,7 +5,7 @@ import { BsCart2, BsFillGridFill } from 'react-icons/bs'
 import Button from './Button'
 const Navbar = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState<boolean>(false)
-
+  
   const handleMenu = useCallback(() => {
     setIsNavbarOpen((isNavbarOpen) => !isNavbarOpen)
   }, [])

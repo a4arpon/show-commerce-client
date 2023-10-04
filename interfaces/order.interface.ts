@@ -1,10 +1,12 @@
-import { productType } from './product.interface'
+import { ProductType } from './product.interface'
 
-export interface OrderTypes extends ShippingInfo, CustomizationTypes {
+export interface OrderTypes extends ShippingInfoType, CustomizationTypes {
   price?: number
 }
 
-export interface ShippingInfo {
+export interface CartTypes extends CustomizationTypes {}
+
+export interface ShippingInfoType {
   name: string
   phone: string
   email: string
@@ -19,6 +21,6 @@ export interface CustomizationTypes {
   optional: string
   quality: number
   quantity: number
-  products: productType[]
+  products: ProductType[]
   size: string
 }

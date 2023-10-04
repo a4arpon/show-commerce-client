@@ -1,7 +1,7 @@
-import { productType } from '@/interfaces/product.interface'
+import { ProductType } from '@/interfaces/product.interface'
 import Image from 'next/image'
 
-const ProductsDetails = ({ details }: { details: productType }) => {
+const ProductsDetails = ({ details }: { details: ProductType }) => {
   return (
     <>
       <div className='flex justify-center lg:justify-start'>

@@ -10,7 +10,7 @@ export const buttonVariants = cva(
       variant: {
         primary: 'bg-dark hover:bg-gradient-to-tr from-dark to-light/10',
         light: 'bg-light text-dark hover:bg-light/90',
-        ghost: 'hover:bg-dark/10 text-dark',
+        ghost: 'bg-dark/5 hover:bg-dark/10 text-dark',
         'no-bg': 'bg-opacity-0 text-dark',
         warn: 'bg-warn text-dark hover:bg-warn/90',
       },

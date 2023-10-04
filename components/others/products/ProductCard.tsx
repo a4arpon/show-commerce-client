@@ -1,9 +1,9 @@
 import Button from '@/components/shared/Button'
-import { productType } from '@/interfaces/product.interface'
+import { ProductType } from '@/interfaces/product.interface'
 import Image from 'next/image'
 import { BsTools } from 'react-icons/bs'
 
-const ProductCard = ({ product }: { product: productType }) => {
+const ProductCard = ({ product }: { product: ProductType }) => {
   return (
     <div className='group rounded border-2 border-dark/20 bg-dark/5 shadow'>
       <div className='h-96 w-full overflow-hidden rounded'>

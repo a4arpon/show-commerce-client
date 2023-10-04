@@ -22,7 +22,7 @@ const CustomizeProducts = ({ options }: { options: Optional[] }) => {
   if (!customizedData) {
     return (
       <form
-        className='grid gap-3 lg:grid-cols-2'
+        className='flex flex-col gap-3 lg:grid lg:grid-cols-2'
         onSubmit={handleSubmit(handleForm)}
       >
         <div className='flex flex-col gap-2'>
@@ -57,7 +57,7 @@ const CustomizeProducts = ({ options }: { options: Optional[] }) => {
             {options &&
               options.map((item) => (
                 <option key={item?._id} value={item._id}>
-                  {item?.name} -- Price: {item?.price}$
+                  {item?.name} For Additional {item?.price}$
                 </option>
               ))}
           </select>
@@ -117,11 +117,18 @@ const CustomizeProducts = ({ options }: { options: Optional[] }) => {
         </div>
         <div className='flex flex-col gap-2'>
           <label>Finishing Option</label>
-          {customizedData?.optional}
+          {customizedData?.optional
+            ? options?.find((item) => item?._id === customizedData?.optional)
+                ?.name
+            : 'None'}
         </div>
         <div className='flex flex-col gap-2'>
           <label>Product Quantity</label>
           {customizedData?.quantity}
+        </div>
+        <div className='mt-3 flex justify-between lg:col-span-2'>
+          <Button>Continue Shopping</Button>
+          <Button>Proceed Checkout</Button>
         </div>
       </div>
     )
