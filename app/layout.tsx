@@ -1,3 +1,4 @@
+import Footer from '@/components/shared/Footer'
 import Navbar from '@/components/shared/Navbar'
 import twClassName from '@/lib/cn'
 import type { Metadata } from 'next'
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={twClassName(rubik.className, 'bg-light text-dark')}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   )
