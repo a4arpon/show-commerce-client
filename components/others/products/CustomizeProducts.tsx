@@ -161,7 +161,7 @@ const CustomizeProducts = ({
             onClick={() => {
               if (getShippingInfo()) {
                 saveToCart(customizedData)
-                router.push('/cart/checkout')
+                router.push('/cart')
               } else {
                 alert('Please add shipping info before proceed to next step.')
               }
